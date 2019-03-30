@@ -1,10 +1,9 @@
 #ASSERT
 show_progress(1.000000, 0);
-#UNMOUNT
 ifelse(is_mounted("/system"), unmount("/system"));
 ui_print(" ");
 ui_print(" ");
-ui_print("#SIGNATURE Installer");
+ui_print("Custom #SIGNATURE Installer");
 ui_print("Built with SuperR's Kitchen");
 ui_print(" ");
 ui_print(" ");
@@ -17,8 +16,7 @@ set_metadata_recursive("/tmp/install/bin", "uid", 0, "gid", 0, "dmode", 0755, "f
 run_program("/tmp/install/bin/configure.sh");
 ui_print("Mounting system...");
 ui_print(" ");
-#MOUNT
-ifelse(is_mounted("/system"), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system"));
+mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system");
 set_progress(0.200000);
 ui_print("Deleting existing directories...");
 ui_print(" ");
@@ -43,7 +41,6 @@ set_metadata_recursive("/system/lib64", "uid", 0, "gid", 0, "dmode", 0755, "fmod
 set_metadata_recursive("/system/media", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644);
 set_metadata_recursive("/system/priv-app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644);
 set_progress(0.900000);
-#UNMOUNT
-ifelse(is_mounted("/system"), unmount("/system"));
+unmount("/system");
 set_progress(1.000000);
-ui_print("#SIGNATURE Installed");
+ui_print("Custom #SIGNATURE Installed");

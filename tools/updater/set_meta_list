@@ -1,0 +1,4 @@
+system -R
+system/bin -R
+#BIN
+#VBIN
