@@ -1,4 +1,5 @@
 #ASSERT
+#UNMOUNT
 ifelse(is_mounted("/system"), unmount("/system"));
 show_progress(1.000000, 0);
 ui_print(" ");
@@ -15,14 +16,17 @@ package_extract_dir("install", "/tmp/install");
 set_metadata_recursive("/tmp/install", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644);
 set_metadata_recursive("/tmp/install/bin", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755);
 run_program("/tmp/install/bin/configure.sh");
-mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system");
+#MOUNT
+ifelse(is_mounted("/system"), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system"));
 run_program("/tmp/install/bin/backuptool.sh", "backup");
+#UNMOUNT
 ifelse(is_mounted("/system"), unmount("/system"));
 ui_print("Formatting system ...");
 ui_print(" ");
 format("ext4", "EMMC", file_getprop("/tmp/config", "system"), "0", "/system");
 set_progress(0.100000);
-mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system");
+#MOUNT
+ifelse(is_mounted("/system"), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system"));
 set_progress(0.200000);
 ui_print("Extracting system...");
 ui_print(" ");
@@ -44,6 +48,7 @@ ui_print(" ");
 #BUSYBOX
 set_progress(0.900000);
 run_program("/tmp/install/bin/backuptool.sh", "restore");
+#UNMOUNT
 ifelse(is_mounted("/system"), unmount("/system"));
 set_progress(1.000000);
 ui_print("#SIGNATURE Installed");

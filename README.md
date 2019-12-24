@@ -1,36 +1,38 @@
-#** SuperR's Kitchen v1.1.9.5 **#
-##by SuperR##
+# **SuperR's Kitchen Free**
+## *by SuperR*
 
-##**FEATURES**##
+## **FEATURES**
 
 **Extract and create ROM from:**
 
 * Rooted Device  
 * Custom Recovery  
 * Existing ROM zip  
-* system.img/boot.img (and cache.img on Samsung devices)
+* system.img/boot.img (and cache.img on Samsung devices)  
 * system.ext4.tar/boot.img  
-* system.ext4.win/boot.emmc.win (including multi-file *.win000, *.win001, etc)  
+* system.ext4.win/boot.emmc.win (including multi-file .win000, .win001, etc)  
 * Moto and other factory firmware zips containing sparsechunk files  
 * cm12 + roms with sparse dat files  
 * Zips that contain system.img and boot.img  
 * Samsung firmware zips that contain tar.md5 file  
-* Official Nexus firmware tgz  
-* Official Nexus preview tgz  
+* Official Nexus firmware tgz/zip  
+* Official Nexus preview tgz/zip  
 * system directory that contains symlinks and boot.img  
 
 **Create flashable zips of many varieties including:**
 
 * Full ROM  
 * Switch between set_perm, set_metadata (KitKat+), raw_img, and sparse_dat (Lollipop+)
-* Kernel (including init.d if you added it with the kitchen)  
+* Kernel  
 * Recovery  
 * Media  
 * app, priv-app, and framework  
 
 **Deodex the following:**  
 
-* N Preview ROMs  
+* Pie ROMs  
+* Oreo ROMs  
+* Nougat ROMs  
 * Marshmallow ROMs  
 * Lollipop ROMs  
 * KitKat and earlier ROMs  
@@ -38,18 +40,16 @@
 **Root features:**  
 
 * Root/unroot  
-* Choose SuperSU zip (add other versions to /tools/root/supersu directory)  
-* Choose system OR systemless root for M+ and Samsung 5.1.1 roms  
+* Choose SuperSU or Magisk zip (add other versions to /tools/root/root_zips directory)  
+* Choose system OR systemless root for M+ and Samsung 5.1.1 roms (when choosing SuperSU)  
+* Add/remove su.d support  
 
 **Boot features:**
 
-* Unpack/repack boot/recovery img (Big Thanks to @osm0sis for mkbootimg source!!!)  
-* Add/remove init.d support
-* Add/remove su.d support    
+* Unpack/repack boot/recovery img (Big Thanks to @osm0sis for Android Image Kitchen!!!)  
 * Add/remove insecure boot  
 * Remove dm-verity  
 * Remove forceencrypt  
-* open_bump.py compatible (download it and add to the tools directory)  
 
 **By-name auto-detection from:**
 
@@ -66,8 +66,7 @@
 **Kitchen updater:**
 
 * View the last 3 changelogs when an update is available.  
-* git pull if the kitchen was cloned  
-* wget zip and extract if kitchen zip was downloaded  
+* Update to the latest version  
 * Option to check for updates when the kitchen starts  
 
 **Create system.img**  
@@ -82,7 +81,7 @@
 **Add/remove user app support (/data/app)**  
 **Sign zips**  
 
-##**USAGE:**##
+## **USAGE:**
 
 1. Run "superr" from it's location in terminal  
 2. Create new project using the menu  
@@ -104,12 +103,13 @@
 4. Extract for new ROM from the Main menu.  
 5. Enjoy!  
 
-##**EXAMPLE:**##
+## **EXAMPLE:**
 
-In your terminal, type the following where "/home/user/location/" is the directory where the script lives:
+In your shell, type the following where "/location/of/kitchen" is the directory where the kitchen lives:
 
+Linux (Terminal):
 ```
-cd /home/user/location/
+cd /location/of/kitchen
 ./superr
 ```
 
@@ -117,6 +117,7 @@ cd /home/user/location/
 
 Double-click the superr file and choose "Run in Terminal" if your OS supports it.
 
-##**DEPENDENCIES:**##
+## **DEPENDENCIES:**
 
-* Java 7 (or higher)
+* Python 3.5 or higher  
+* Java 8 or higher

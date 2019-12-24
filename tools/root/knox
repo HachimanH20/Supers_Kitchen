@@ -26,3 +26,5 @@ system/priv-app/DiagMonAgent*
 system/priv-app/KLMSAgent*
 system/priv-app/SecureFolderStub*
 system/priv-app/SPDClient*
+system/priv-app/KnoxCore*
+system/priv-app/knoxvpnproxyhandler*
