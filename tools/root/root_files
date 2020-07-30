@@ -5,13 +5,13 @@ SuperSU
 rootzip
 magisk
 Magisk
+system/app/*superuser*
+system/app/*Superuser*
+system/app/*SuperUser*
 system/app/Kinguser*
 system/app/supersu*
 system/app/Supersu*
 system/app/SuperSU*
-system/app/superuser*
-system/app/Superuser*
-system/app/SuperUser*
 system/app/VenomSuperUser*
 system/bin/app6939
 system/bin/app_process32_original
@@ -23,8 +23,9 @@ system/bin/.ext/.su
 system/bin/.krsh
 system/bin/rt.sh
 system/bin/start-ssh
-system/bin/su
+system/bin/*su
 system/bin/.usr
+system/etc/init/su.rc
 system/etc/init.d/99SuperSUDaemon
 system/etc/.installed_su_daemon
 system/kroot_*

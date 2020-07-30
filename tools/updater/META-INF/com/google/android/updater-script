@@ -1,11 +1,9 @@
 #ASSERT
-#UNMOUNT
-ifelse(is_mounted("/system"), unmount("/system"));
 show_progress(1.000000, 0);
 ui_print(" ");
 ui_print(" ");
 ui_print("#SIGNATURE Installer");
-ui_print("Built with SuperR's Kitchen");
+ui_print("#SIGCUST");
 ui_print(" ");
 ui_print(" ");
 ui_print(" ");
@@ -15,22 +13,20 @@ ui_print(" ");
 package_extract_dir("install", "/tmp/install");
 set_metadata_recursive("/tmp/install", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644);
 set_metadata_recursive("/tmp/install/bin", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755);
-run_program("/tmp/install/bin/configure.sh");
-#MOUNT
-ifelse(is_mounted("/system"), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system"));
-run_program("/tmp/install/bin/backuptool.sh", "backup");
+run_program("/tmp/install/bin/busybox", "sh", "/tmp/install/bin/configure.sh");
+ifelse(file_getprop("/tmp/config", "fail"), abort("ERROR: Partition paths not found."));
 #UNMOUNT
-ifelse(is_mounted("/system"), unmount("/system"));
+ifelse(is_mounted(file_getprop("/tmp/config", "sysmnt")), unmount(file_getprop("/tmp/config", "sysmnt")));
+#MOUNT
+ifelse(is_mounted(file_getprop("/tmp/config", "sysmnt")), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), file_getprop("/tmp/config", "sysmnt")));
+run_program("/tmp/install/bin/busybox", "sh", "/tmp/install/bin/backuptool.sh", "backup");
 ui_print("Formatting system ...");
 ui_print(" ");
-format("ext4", "EMMC", file_getprop("/tmp/config", "system"), "0", "/system");
+#SYSFORMAT
 set_progress(0.100000);
-#MOUNT
-ifelse(is_mounted("/system"), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), "/system"));
-set_progress(0.200000);
 ui_print("Extracting system...");
 ui_print(" ");
-package_extract_dir("system", "/system");
+package_extract_dir("system", file_getprop("/tmp/config", "sysmnt"));
 set_progress(0.500000);
 ui_print("Creating symlinks...");
 ui_print(" ");
@@ -42,13 +38,17 @@ ui_print(" ");
 set_progress(0.700000);
 ui_print(" "); ui_print("Extracting boot image..."); ui_print(" ");
 package_extract_file("boot.img", file_getprop("/tmp/config", "boot"));
+#UNMOUNT
+ifelse(is_mounted(file_getprop("/tmp/config", "sysmnt")), unmount(file_getprop("/tmp/config", "sysmnt")));
 set_progress(0.800000);
 #ROOT
 ui_print(" ");
 #BUSYBOX
+#MOUNT
+ifelse(is_mounted(file_getprop("/tmp/config", "sysmnt")), "", mount("ext4", "EMMC", file_getprop("/tmp/config", "system"), file_getprop("/tmp/config", "sysmnt")));
 set_progress(0.900000);
-run_program("/tmp/install/bin/backuptool.sh", "restore");
+run_program("/tmp/install/bin/busybox", "sh", "/tmp/install/bin/backuptool.sh", "restore");
 #UNMOUNT
-ifelse(is_mounted("/system"), unmount("/system"));
+ifelse(is_mounted(file_getprop("/tmp/config", "sysmnt")), unmount(file_getprop("/tmp/config", "sysmnt")));
 set_progress(1.000000);
 ui_print("#SIGNATURE Installed");

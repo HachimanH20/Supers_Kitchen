@@ -1,4 +1,0 @@
-###########################################
-# Root
-/       u:object_r:rootfs:s0
-/d      u:object_r:rootfs:s0

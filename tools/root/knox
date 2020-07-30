@@ -28,3 +28,6 @@ system/priv-app/SecureFolderStub*
 system/priv-app/SPDClient*
 system/priv-app/KnoxCore*
 system/priv-app/knoxvpnproxyhandler*
+system/priv-app/knoxanalyticsagent
+system/priv-app/KnoxDesktopLauncher
+system/priv-app/KnoxKeyChain
